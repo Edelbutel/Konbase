@@ -12531,23 +12531,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\matheus.rei\\.nuget\\packages\\": {},
+    "C:\\Users\\121718224\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\users\\matheus.rei\\source\\repos\\KonBase\\KonBase\\KonBase.csproj",
+      "projectUniqueName": "C:\\Users\\121718224\\Documents\\GitHub\\Konbase\\KonBase\\KonBase.csproj",
       "projectName": "KonBase",
-      "projectPath": "c:\\users\\matheus.rei\\source\\repos\\KonBase\\KonBase\\KonBase.csproj",
-      "packagesPath": "C:\\Users\\matheus.rei\\.nuget\\packages\\",
-      "outputPath": "c:\\users\\matheus.rei\\source\\repos\\KonBase\\KonBase\\obj\\",
+      "projectPath": "C:\\Users\\121718224\\Documents\\GitHub\\Konbase\\KonBase\\KonBase.csproj",
+      "packagesPath": "C:\\Users\\121718224\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\121718224\\Documents\\GitHub\\Konbase\\KonBase\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\matheus.rei\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\121718224\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

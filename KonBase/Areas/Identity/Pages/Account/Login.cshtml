@@ -43,36 +43,38 @@
                                         <div class="text-center">
                                             <h1 class="h4 text-gray-900 mb-4">Bem vindo de volta!</h1>
                                         </div>
-                                        <form class="user">
+                                        <form asp-route-returnUrl="@Model.ReturnUrl" method="post" class="user">
                                             <div class="form-group">
-                                                <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                                                <input asp-for="Input.Email" class="form-control form-control-user" placeholder="Email"/>
+                                                <span asp-validation-for="Input.Email" class="text-danger"></span>
                                             </div>
                                             <div class="form-group">
-                                                <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                                <input asp-for="Input.Password" class="form-control form-control-user" placeholder="Senha" />
+                                                <span asp-validation-for="Input.Password" class="text-danger"></span>
                                             </div>
                                             <div class="form-group">
                                                 <div class="custom-control custom-checkbox small">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                    <label class="custom-control-label" for="customCheck">Remember Me</label>
+                                                    <input asp-for="Input.RememberMe" type="checkbox" class="custom-control-input" id="customCheck" />
+                                                    <label asp-for="Input.RememberMe" class="custom-control-label" for="customCheck"></label>
                                                 </div>
                                             </div>
-                                            <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                                Login
-                                            </a>
+                                            <button class="btn btn-primary btn-user btn-block" type="submit">
+                                                Entrar
+                                            </button>
                                             <hr>
-                                            <a href="index.html" class="btn btn-google btn-user btn-block">
-                                                <i class="fab fa-google fa-fw"></i> Login with Google
+                                            <a asp-area="Identity" asp-page="/Account/ExternalLogin" class="btn btn-google btn-user btn-block">
+                                                <i class="fab fa-google fa-fw"></i> Entrar com Google
                                             </a>
-                                            <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                                <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                            <a asp-area="Identity" asp-page="/Account/ExternalLogin" class="btn btn-facebook btn-user btn-block">
+                                                <i class="fab fa-facebook-f fa-fw"></i> Entrar com Facebook
                                             </a>
                                         </form>
                                         <hr>
                                         <div class="text-center">
-                                            <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                            <a asp-area="Identity" asp-page="/Account/ForgotPassword">Esqueceu a senha?</a>
                                         </div>
                                         <div class="text-center">
-                                            <a class="small" href="register.html">Create an Account!</a>
+                                            <a asp-area="Identity" asp-page="/Account/Register">Crie a sua conta aqui!</a>
                                         </div>
                                     </div>
                                 </div>
