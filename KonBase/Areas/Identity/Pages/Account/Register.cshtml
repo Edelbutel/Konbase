@@ -1,37 +1,111 @@
 ﻿@page
 @model RegisterModel
+
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Registrar";
+    Layout = null;
 }
 
-<h2>@ViewData["Title"]</h2>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@ViewData["Title"] - KonBase</title>
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+    <environment include="Development">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+        <link href="~/lib/konbaseBootstrap/css/konbaseBootstrap.min.css" rel="stylesheet" type="text/css" />
+    </environment>
+</head>
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Crie a sua conta aqui!</h1>
+                            </div>
+                            <form asp-route-returnUrl="@Model.ReturnUrl" method="post" class="user">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input asp-for="Input.FirstName" class="form-control form-control-user" placeholder="Nome" />
+                                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input asp-for="Input.LastName" class="form-control form-control-user" placeholder="Sobrenome" />
+                                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="Input.Email" class="form-control form-control-user" placeholder="Email" />
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="Input.CellPhone" class="form-control form-control-user cellphone" placeholder="Celular" />
+                                    <span asp-validation-for="Input.CellPhone" class="text-danger"></span>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input asp-for="Input.Password" class="form-control form-control-user" placeholder="Senha" />
+                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input asp-for="Input.ConfirmPassword" class="form-control form-control-user" placeholder="Confirme sua Senha" />
+                                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-user btn-block" type="submit">
+                                    Registrar
+                                </button>
+                                <hr>
+                                <a asp-page="./ExternalLogin" class="btn btn-google btn-user btn-block">
+                                    <i class="fab fa-google fa-fw"></i> Entrar com Google
+                                </a>
+                                <a asp-page="./ExternalLogin" class="btn btn-facebook btn-user btn-block">
+                                    <i class="fab fa-facebook-f fa-fw"></i> Entrar com Facebook
+                                </a>
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a asp-page="./ForgotPassword">Esqueceu a senha?</a>
+                            </div>
+                            <div class="text-center">
+                                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Já Possui Conta ? Entrar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-default">Register</button>
-        </form>
+        </div>
+
     </div>
-</div>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+    <environment include="Development">
+
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/konbaseBootstrap/js/konbaseBootstrap.min.js"></script>
+        <script src="~/lib/jquery-easing/jquery-easing.js"></script>
+        <script src="~/js/sidebarToggleTop.js"></script>
+        <script src="~/lib/jquery-Mask-1.14.15/src/jquery.mask.js"></script>
+        <script src="~/js/styleMask.js"></script>
+    </environment>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+</body>
+</html>

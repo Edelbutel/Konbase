@@ -1,8 +1,4 @@
-﻿/*!
- * Start Bootstrap - SB Admin 2 v4.0.2 (https://startbootstrap.com/template-overviews/sb-admin-2)
- * Copyright 2013-2019 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-sb-admin-2/blob/master/LICENSE)
- */ /*!
+﻿ /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
  * Copyright 2011-2019 Twitter, Inc.
@@ -10378,7 +10374,8 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
 }
 
 .text-center {
-    text-align: center !important
+    text-align: center !important;
+    text-decoration:none;
 }
 
 @media (min-width:576px) {
@@ -11727,13 +11724,13 @@ a:focus {
 }
 
 .bg-login-image {
-    background: url(https://source.unsplash.com/K4mSJ7kc0As/600x800);
+    background: url(../../../images/auth/login.jpg);
     background-position: center;
     background-size: cover
 }
 
 .bg-register-image {
-    background: url(https://source.unsplash.com/Mv9hjnEUHR4/600x800);
+    background: url(../../../images/auth/register.jpg);
     background-position: center;
     background-size: cover
 }
