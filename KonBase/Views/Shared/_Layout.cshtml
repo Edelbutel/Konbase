@@ -305,8 +305,11 @@
                     </div>
                     <div class="modal-body">Selecione "Sair" abaixo se você estiver pronto para terminar sua sessão atual.</div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-primary">KonBase</a>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        @using (Html.BeginForm("Logout", "Identity/Account", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-primary"> Sair</a>
+                        }
                     </div>
                 </div>
             </div>
