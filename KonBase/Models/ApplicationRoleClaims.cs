@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KonBase.Models
 {
-    public class ApplicationRole : IdentityRole<Guid>
+    public class ApplicationRoleClaims : IdentityRoleClaim<Guid>
     {
     }
 }

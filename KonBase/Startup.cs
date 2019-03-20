@@ -13,6 +13,9 @@ using KonBase.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using KonBase.Models;
+using KonBase.Custom;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using KonBase.Areas.Identity.Services;
 
 namespace KonBase
 {
@@ -25,19 +28,19 @@ namespace KonBase
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // Esse método é chamado pelo tempo de execução. Use este método para adicionar serviços ao contêiner.
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                // Este lambda determina se o consentimento do usuário para cookies não essenciais é necessário para uma determinada solicitação.
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
             services.Configure<IdentityOptions>(options =>
             {
-                // Default Lockout settings.
+                // Configurações de bloqueio padrão.
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
                 options.Lockout.MaxFailedAccessAttempts = 8;
                 options.Lockout.AllowedForNewUsers = true;
@@ -55,7 +58,8 @@ namespace KonBase
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, ApplicationRole>()
+            services.AddIdentity<ApplicationUsers, ApplicationRoles>()
+            .AddErrorDescriber<PortugueseIdentityErrorDescriber>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
@@ -70,12 +74,14 @@ namespace KonBase
                 {
                     facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
                     facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-                }); 
+                });
+
+            services.AddSingleton<EmailSender>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // Esse método é chamado pelo tempo de execução. Use este método para configurar o pipeline de solicitação de HTTP.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

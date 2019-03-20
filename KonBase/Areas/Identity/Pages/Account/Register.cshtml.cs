@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using KonBase.Areas.Identity.Services;
 using KonBase.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -16,16 +19,16 @@ namespace KonBase.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUsers> _signInManager;
+        private readonly UserManager<ApplicationUsers> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
+        private readonly EmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUsers> userManager,
+            SignInManager<ApplicationUsers> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            EmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -36,7 +39,12 @@ namespace KonBase.Areas.Identity.Pages.Account
         [BindProperty]
         public InputModel Input { get; set; }
 
+        public IList<AuthenticationScheme> ExternalLogins { get; set; }
+
         public string ReturnUrl { get; set; }
+
+        [TempData]
+        public string ErrorMessage { get; set; }
 
         public class InputModel
         {
@@ -70,8 +78,20 @@ namespace KonBase.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
-        public void OnGet(string returnUrl = null)
+        public async Task OnGet(string returnUrl = null)
         {
+            if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                ModelState.AddModelError(string.Empty, ErrorMessage);
+            }
+
+            returnUrl = returnUrl ?? Url.Content("~/");
+
+            // Limpe o cookie externo existente para garantir um processo de registro limpo
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             ReturnUrl = returnUrl;
         }
 
@@ -80,7 +100,7 @@ namespace KonBase.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {
+                var user = new ApplicationUsers {
                     UserName = Input.Email,
                     Email = Input.Email,
                     FirstName = Input.FirstName,
@@ -93,15 +113,13 @@ namespace KonBase.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("O usuário criou uma nova conta com senha");
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { userId = user.Id, code = code },
-                        protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    var codeGerado = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                    var callbackUrl = Url.Page("/Account/ConfirmEmail",pageHandler: null,values: new { userId = user.Id, code = codeGerado },protocol: Request.Scheme);
+
+                    await _emailSender.SendEmail(Input.Email, "Confirme seu Email", "d-06e3c2ffdd3e4b9ca167309726a718b8", callbackUrl);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);

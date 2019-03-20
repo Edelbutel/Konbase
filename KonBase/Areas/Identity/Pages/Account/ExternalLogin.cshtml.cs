@@ -16,13 +16,13 @@ namespace KonBase.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUsers> _signInManager;
+        private readonly UserManager<ApplicationUsers> _userManager;
         private readonly ILogger<ExternalLoginModel> _logger;
 
         public ExternalLoginModel(
-            SignInManager<ApplicationUser> signInManager,
-            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUsers> signInManager,
+            UserManager<ApplicationUsers> userManager,
             ILogger<ExternalLoginModel> logger)
         {
             _signInManager = signInManager;
@@ -52,6 +52,9 @@ namespace KonBase.Areas.Identity.Pages.Account
             [StringLength(100, ErrorMessage = "O {0} deve ter pelo menos {2} e no máximo {1} caracteres.", MinimumLength = 3)]
             [Display(Name = "Sobrenome")]
             public string LastName { get; set; }
+
+            [Display(Name = "Celular")]
+            public string CellPhone { get; set; }
 
             [Required(ErrorMessage = "Email é um campo obrigatório")]
             [RegularExpression(@"^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$", ErrorMessage = "Email está em um formato inválido.")]
@@ -97,6 +100,7 @@ namespace KonBase.Areas.Identity.Pages.Account
             {
                 return RedirectToPage("./Lockout");
             }
+
             else
             {
                 // Se o usuário não tiver uma conta, peça ao usuário para criar uma conta.
@@ -106,7 +110,10 @@ namespace KonBase.Areas.Identity.Pages.Account
                 {
                     Input = new InputModel
                     {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                        Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                        FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName),
+                        LastName = info.Principal.FindFirstValue(ClaimTypes.Surname),
+                        CellPhone = info.Principal.FindFirstValue(ClaimTypes.MobilePhone)
                     };
                 }
                 return Page();
@@ -127,11 +134,13 @@ namespace KonBase.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {
+                var user = new ApplicationUsers {
                     UserName = Input.Email,
                     Email = Input.Email,
                     FirstName = Input.FirstName,
-                    LastName = Input.LastName
+                    LastName = Input.LastName,
+                    PhoneNumber = Input.CellPhone,
+                    EmailConfirmed = true
                 };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)

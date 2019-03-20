@@ -71,13 +71,37 @@
                                     Registrar
                                 </button>
                                 <hr>
-                                <a asp-page="./ExternalLogin" class="btn btn-google btn-user btn-block">
-                                    <i class="fab fa-google fa-fw"></i> Entrar com Google
-                                </a>
-                                <a asp-page="./ExternalLogin" class="btn btn-facebook btn-user btn-block">
-                                    <i class="fab fa-facebook-f fa-fw"></i> Entrar com Facebook
-                                </a>
                             </form>
+                            @{
+                                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                                {
+                                    <div class="text-center">
+                                        <p>
+                                            Não há serviços de autenticação externos configurados.
+                                        </p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <form asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                        <div>
+                                            <p>
+                                                @foreach (var provider in Model.ExternalLogins)
+                                                {
+                                                    if (provider.Name == "Google")
+                                                    {
+                                                        <button type="submit" class="btn btn-default btn-google btn-user btn-block" name="provider" value="@provider.Name" title="Faça o login usando sua conta @provider.DisplayName"><i class="fab fa-google fa-fw"></i> Registrar com Google</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="submit" class="btn btn-default btn-facebook btn-user btn-block" name="provider" value="@provider.Name" title="Faça o login usando sua conta @provider.DisplayName"><i class="fab fa-facebook-f fa-fw"></i> Registrar com Facebook</button>
+                                                    }
+                                                }
+                                            </p>
+                                        </div>
+                                    </form>
+                                }
+                            }
                             <hr>
                             <div class="text-center">
                                 <a asp-page="./ForgotPassword">Esqueceu a senha?</a>

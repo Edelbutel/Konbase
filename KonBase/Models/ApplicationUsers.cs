@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KonBase.Models
 {
-    public class ApplicationUser :  IdentityUser<Guid>
+    public class ApplicationUsers :  IdentityUser<Guid>
     {
         [Required]
         public string FirstName { get; set; }
