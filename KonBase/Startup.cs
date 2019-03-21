@@ -16,6 +16,7 @@ using KonBase.Models;
 using KonBase.Custom;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using KonBase.Areas.Identity.Services;
+using NToastNotify;
 
 namespace KonBase
 {
@@ -76,6 +77,12 @@ namespace KonBase
                     facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
                 });
 
+            services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
+            {
+                ProgressBar = true,
+                PositionClass = ToastPositions.TopRight
+            });
+
             services.AddSingleton<EmailSender>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -100,6 +107,8 @@ namespace KonBase
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.UseNToastNotify();
 
             app.UseMvc(routes =>
             {

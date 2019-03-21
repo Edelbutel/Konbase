@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using NToastNotify;
 
 namespace KonBase.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class ConfirmEmailModel : PageModel
     {
+        private readonly IToastNotification _toastNotification;
         private readonly UserManager<ApplicationUsers> _userManager;
 
-        public ConfirmEmailModel(UserManager<ApplicationUsers> userManager)
+        public ConfirmEmailModel(UserManager<ApplicationUsers> userManager, IToastNotification toastNotification)
         {
+            _toastNotification = toastNotification;
             _userManager = userManager;
         }
 
@@ -30,16 +33,18 @@ namespace KonBase.Areas.Identity.Pages.Account
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{userId}'.");
+                return NotFound($"Não é possível carregar o usuário com o ID '{userId}'.");
             }
 
             var result = await _userManager.ConfirmEmailAsync(user, code);
             if (!result.Succeeded)
             {
-                throw new InvalidOperationException($"Error confirming email for user with ID '{userId}':");
+                throw new InvalidOperationException($"Erro ao confirmar email para usuário com ID '{userId}':");
             }
 
-            return Page();
+            _toastNotification.AddSuccessToastMessage("Obrigado por confirmar seu Email");
+
+            return RedirectToAction("Login", "Identity/Account");
         }
     }
 }

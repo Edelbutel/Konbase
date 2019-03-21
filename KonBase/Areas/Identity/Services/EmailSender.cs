@@ -14,26 +14,6 @@ namespace KonBase.Areas.Identity.Services
     {
         public async Task SendEmail(string email, string subject, string template, string link)
         {
-            /*
-            var apiKey = Environment.GetEnvironmentVariable("SEND_GRID_API_KEY");
-
-            var client = new SendGridClient("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");
-
-            var msg = new SendGridMessage()
-            {
-                From = new EmailAddress("noreply@konbase.com.br", "Equipe Konbase"),
-                Subject = subject,
-                TemplateId = template
-            };
-
-            msg.AddSubstitution("link", link);
-
-            msg.AddTo(new EmailAddress(email));
-
-            var response = await client.SendEmailAsync(msg);
-
-            */
-
             var apiKey = Environment.GetEnvironmentVariable("SEND_GRID_API_KEY");
 
             var client = new SendGridClient(apiKey);

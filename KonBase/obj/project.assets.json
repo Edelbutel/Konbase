@@ -2773,6 +2773,24 @@
           "lib/netstandard1.3/Newtonsoft.Json.Bson.dll": {}
         }
       },
+      "NToastNotify/5.0.8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc": "2.1.0",
+          "Microsoft.AspNetCore.Mvc.ViewFeatures": "2.1.0",
+          "Microsoft.AspNetCore.StaticFiles": "2.1.0",
+          "Microsoft.Extensions.FileProviders.Embedded": "2.1.0",
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/NToastNotify.Views.dll": {},
+          "lib/netstandard2.0/NToastNotify.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NToastNotify.Views.dll": {},
+          "lib/netstandard2.0/NToastNotify.dll": {}
+        }
+      },
       "NuGet.Frameworks/4.7.0": {
         "type": "package",
         "dependencies": {
@@ -7708,6 +7726,19 @@
         "newtonsoft.json.bson.nuspec"
       ]
     },
+    "NToastNotify/5.0.8": {
+      "sha512": "NQfJjcj0h99kQUhhCcHlhNI0Wbn8+pHXdXBpmYOVnGRnFMmCxaMq0KBSRl3Rv8jLS3cZ6LAIAswdxFQxGVmtOw==",
+      "type": "package",
+      "path": "ntoastnotify/5.0.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/NToastNotify.Views.dll",
+        "lib/netstandard2.0/NToastNotify.dll",
+        "ntoastnotify.5.0.8.nupkg.sha512",
+        "ntoastnotify.nuspec"
+      ]
+    },
     "NuGet.Frameworks/4.7.0": {
       "sha512": "KuqDbPzjOWbUM6gPMbkvdhlQ10roQAoMM7mNZ8hcY/fH+9J4Zc+qT8dLWoNzGyr0OrxQVdZdbSjy/fxwoICgGg==",
       "type": "package",
@@ -12561,6 +12592,7 @@
       "Microsoft.AspNetCore.Razor.Design >= 2.1.2",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.1.7",
+      "NToastNotify >= 5.0.8",
       "Sendgrid >= 9.10.0"
     ]
   },
@@ -12625,6 +12657,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.7, )"
+          },
+          "NToastNotify": {
+            "target": "Package",
+            "version": "[5.0.8, )"
           },
           "Sendgrid": {
             "target": "Package",

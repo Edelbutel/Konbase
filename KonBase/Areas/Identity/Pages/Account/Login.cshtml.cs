@@ -10,19 +10,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using KonBase.Models;
+using NToastNotify;
 
 namespace KonBase.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
+        private readonly IToastNotification _toastNotification;
         private readonly SignInManager<ApplicationUsers> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<ApplicationUsers> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUsers> signInManager, ILogger<LoginModel> logger, IToastNotification toastNotification)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _toastNotification = toastNotification;
         }
 
         [BindProperty]
@@ -77,6 +80,7 @@ namespace KonBase.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
+                    _toastNotification.AddSuccessToastMessage("Você entrou com sucesso");
                     _logger.LogInformation("Usuário logado.");
                     return LocalRedirect(returnUrl);
                 }
@@ -86,16 +90,19 @@ namespace KonBase.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
+                    _toastNotification.AddWarningToastMessage("Conta de usuário bloqueada.");
                     _logger.LogWarning("Conta de usuário bloqueada.");
                     return RedirectToPage("./Lockout");
                 }
                 else
                 {
+                    _toastNotification.AddErrorToastMessage("Não foi possível entrar.");
                     ModelState.AddModelError(string.Empty, "Tentativa de login inválida.");
                     return Page();
                 }
             }
 
+            _toastNotification.AddWarningToastMessage("Alguma informação foi digitada incorretamente.");
             // Se chegamos até aqui, algo falhou, formulário de reexame
             return Page();
         }

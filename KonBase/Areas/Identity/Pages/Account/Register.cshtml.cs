@@ -13,12 +13,14 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using NToastNotify;
 
 namespace KonBase.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
+        private readonly IToastNotification _toastNotification;
         private readonly SignInManager<ApplicationUsers> _signInManager;
         private readonly UserManager<ApplicationUsers> _userManager;
         private readonly ILogger<RegisterModel> _logger;
@@ -28,12 +30,14 @@ namespace KonBase.Areas.Identity.Pages.Account
             UserManager<ApplicationUsers> userManager,
             SignInManager<ApplicationUsers> signInManager,
             ILogger<RegisterModel> logger,
-            EmailSender emailSender)
+            EmailSender emailSender,
+            IToastNotification toastNotification)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _toastNotification = toastNotification;
         }
 
         [BindProperty]
@@ -113,8 +117,6 @@ namespace KonBase.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("O usuário criou uma nova conta com senha");
 
-
-
                     var codeGerado = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
                     var callbackUrl = Url.Page("/Account/ConfirmEmail",pageHandler: null,values: new { userId = user.Id, code = codeGerado },protocol: Request.Scheme);
@@ -122,7 +124,10 @@ namespace KonBase.Areas.Identity.Pages.Account
                     await _emailSender.SendEmail(Input.Email, "Confirme seu Email", "d-06e3c2ffdd3e4b9ca167309726a718b8", callbackUrl);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+
+                    _toastNotification.AddSuccessToastMessage("Obrigado por se registrar. Confirme seu Email para poder entrar.");
+
+                    return RedirectToPage("./Login");
                 }
                 foreach (var error in result.Errors)
                 {
@@ -130,6 +135,7 @@ namespace KonBase.Areas.Identity.Pages.Account
                 }
             }
 
+            _toastNotification.AddWarningToastMessage("Alguma informação foi digitada incorretamente.");
             // Se chegamos até aqui, algo falhou, formulário de reexame
             return Page();
         }
