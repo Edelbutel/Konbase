@@ -25,6 +25,7 @@ namespace KonBase.Areas.Identity.Pages.Account
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            _toastNotification = toastNotification;
         }
 
         [BindProperty]
@@ -48,13 +49,13 @@ namespace KonBase.Areas.Identity.Pages.Account
                     return RedirectToPage("./ForgotPasswordConfirmation");
                 }
 
-                var codeGerado = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var codeGerado = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-                var callbackUrl = Url.Page("/Account/ResetPassword", pageHandler: null, values: new { userId = user.Id, code = codeGerado }, protocol: Request.Scheme);
+                var callbackUrl = Url.Page("/Account/ResetPassword", pageHandler: null, values: new { userId = user.Id, code = codeGerado, email = Input.Email }, protocol: Request.Scheme);
 
                 await _emailSender.SendEmail(Input.Email, "Confirme seu Email", "d-fd9d7b96fc9440e7a946026e2f7904a0", callbackUrl);
 
-                _toastNotification.AddWarningToastMessage("Verefique seu Email para poder recuperar a senha.");
+                _toastNotification.AddSuccessToastMessage("Verefique seu Email para poder recuperar a senha.");
 
                 return RedirectToPage("./Login");
             }

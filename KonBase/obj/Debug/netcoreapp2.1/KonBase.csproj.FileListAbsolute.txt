@@ -209,7 +209,6 @@ C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\bin\Debug\netcoreapp2.1\Kon
 C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\bin\Debug\netcoreapp2.1\KonBase.pdb
 C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\bin\Debug\netcoreapp2.1\KonBase.Views.dll
 C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\bin\Debug\netcoreapp2.1\KonBase.Views.pdb
-C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\obj\Debug\netcoreapp2.1\KonBase.csprojAssemblyReference.cache
 C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\obj\Debug\netcoreapp2.1\KonBase.csproj.CoreCompileInputs.cache
 C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\obj\Debug\netcoreapp2.1\KonBase.RazorAssemblyInfo.cache
 C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\obj\Debug\netcoreapp2.1\KonBase.RazorAssemblyInfo.cs
@@ -270,3 +269,4 @@ C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\obj\Debug\netcoreapp2.1\Kon
 C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\obj\Debug\netcoreapp2.1\KonBase.pdb
 C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\obj\Debug\netcoreapp2.1\KonBase.csproj.CopyComplete
 C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\obj\Debug\netcoreapp2.1\KonBase.csprojAssemblyReference.cache
