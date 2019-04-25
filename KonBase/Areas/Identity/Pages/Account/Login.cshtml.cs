@@ -82,7 +82,7 @@ namespace KonBase.Areas.Identity.Pages.Account
                 {
                     _toastNotification.AddSuccessToastMessage("Você entrou com sucesso");
                     _logger.LogInformation("Usuário logado.");
-                    return LocalRedirect(returnUrl);
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 if (result.RequiresTwoFactor)
                 {

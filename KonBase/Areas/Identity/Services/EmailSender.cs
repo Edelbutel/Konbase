@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,9 +14,17 @@ namespace KonBase.Areas.Identity.Services
 {
     public class EmailSender
     {
+        public static IConfigurationRoot Configuration { get; set; }
+
         public async Task SendEmail(string email, string subject, string template, string link)
         {
-            var apiKey = Environment.GetEnvironmentVariable("SEND_GRID_API_KEY");
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
+
+            Configuration = builder.Build();
+
+            var apiKey = Configuration["SendGrid:SEND_GRID_API_KEY"];
 
             var client = new SendGridClient(apiKey);
 

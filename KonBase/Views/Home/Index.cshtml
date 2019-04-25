@@ -29,14 +29,6 @@
 
     <!-- FONT ICONS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link href="~/lib/flaticon/flaticon.css" rel="stylesheet">
-
-    <!-- PLUGINS STYLESHEET -->
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/magnific-popup.css" rel="stylesheet">
-    <link href="css/owl.carousel.min.css" rel="stylesheet">
-    <link href="css/owl.theme.default.min.css" rel="stylesheet">
-
     <!-- TEMPLATE CSS -->
     <link href="~/lib/spinner/css/spinner.css" rel="stylesheet">
 
@@ -99,14 +91,13 @@
                     <div id="navbarSupportedContent" class="collapse navbar-collapse">
                         <ul class="navbar-nav mr-auto">
 
-                            <li class="nav-item nl-simple"><a class="nav-link" href="#header">Home</a></li>
+                            <li class="nav-item nl-simple"><a class="nav-link" href="#home">Home</a></li>
                             <li class="nav-item nl-simple"><a class="nav-link" href="#services-2">Porque somos diferentes</a></li>
                             <li class="nav-item nl-simple"><a class="nav-link" href="#content-10">Funcionalidades</a></li>
                             <li class="nav-item nl-simple"><a class="nav-link" href="#contacts-1">Contato</a></li>
                             <li class="nav-item nl-simple"><a class="nav-link" href="#pricing-1">Planos</a></li>
 
                         </ul>
-
                         <!-- Header Button -->
                         <span class="navbar-text white-color">
                             <a asp-area="" asp-controller="Identity" asp-action="Account/Login" class="btn btn-tra-white black-hover">Entrar</a>
@@ -120,7 +111,7 @@
         </header>	<!-- END HEADER -->
         <!-- HERO-2
         ============================================= -->
-        <section id="hero-2" class="bg-fixed hero-section division">
+        <section id="home" class="bg-fixed hero-section division">
             <div class="container">
                 <div class="row d-flex align-items-center">
 
@@ -696,6 +687,20 @@
                         </div>
                     </div>
 
+                    <div class="col-md-3 col-lg-2">
+                        <div class="footer-links mb-40">
+
+                            <!-- Title -->
+                            <h5 class="h5-xs">Termos de Uso</h5>
+
+                            <!-- Footer Links -->
+                            <ul class="clearfix">
+                                <li><p><a asp-area="" asp-controller="Home" asp-action="ServiceTerms" >Termos e Condições de Uso</a></p></li>
+                            </ul>
+
+                        </div>
+                    </div>
+
 
                     <!-- FOOTER NEWSLETTER FORM -->
                     <div class="col-md-6 col-lg-3">
@@ -747,37 +752,11 @@
     ============================================= -->
     <script src="~/lib/jquery-3.3.1/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap-4.2.1/js/bootstrap.min.js"></script>
-    <script src="js/fontawesome.js"></script>
-    <script src="js/modernizr.custom.js"></script>
-    <script src="js/jquery.easing.js"></script>
-    <script src="js/retina.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
-    <script src="js/jquery.scrollto.js"></script>
-    <script src="js/jquery.appear.js"></script>
-    <script src="js/jquery.vide.min.js"></script>
-    <script src="js/wow.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/contact-form.js"></script>
-    <script src="js/register-form.js"></script>
-    <script src="js/quick-form.js"></script>
-    <script src="js/comment-form.js"></script>
-    <script src="js/jquery.validate.min.js"></script>
-    <script src="js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/lib/jquery-easing-1.3.0/jquery-easing.js"></script>
 
     <!-- Custom Script -->
     <script src="~/js/custom.js"></script>
 
-    <script>
-			new WOW().init();
-    </script>
-
-    <script src="js/changer.js"></script>
-    <script defer src="js/styleswitch.js"></script>
-
-
 </body>
-
-
 
 </html>	

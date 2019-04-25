@@ -15,89 +15,121 @@
     <meta name="author" content="">
     <title>@ViewData["Title"] - KonBase</title>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="~/css/KonbaseBootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+    <link href="~/css/nucleo/nucleo.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link href="~/css/konbaseBootstrap.min.css" rel="stylesheet" type="text/css" />
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-default">
 
-    <div class="container">
-
-        <!-- Outer Row -->
-        <div class="row justify-content-center">
-
-            <div class="col-xl-10 col-lg-12 col-md-9">
-
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Bem vindo de volta!</h1>
-                                    </div>
-                                    <form asp-route-returnUrl="@Model.ReturnUrl" method="post" class="user">
-                                        <div class="form-group">
-                                            <input asp-for="Input.Email" class="form-control form-control-user" placeholder="Email" />
-                                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header bg-gradient-primary py-4 py-lg-5 pt-lg-6">
+            <div class="container">
+                <div class="header-body text-center mb-7">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+                            <h1 class="text-white">
+                                Bem vindo!
+                            </h1>
+                            <p class="text-lead text-white">
+                                Utilize o formulário para fazer login em sua conta.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="separator separator-bottom separator-skew zindex-100">
+                <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+                </svg>
+            </div>
+        </div>
+        <!-- Page content -->
+        <div class="container mt--8 pb-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-7">
+                    <div class="card bg-secondary border-0 mb-0">
+                        <div class="card-header bg-transparent pb-5">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="text-muted text-center mt-2 mb-3"><small>Entrar com</small></div>
+                            <div class="btn-wrapper text-center">
+                                @{
+                                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                                    {
+                                        <div class="text-center">
+                                            <p>
+                                                Não há serviços de autenticação externos configurados.
+                                            </p>
                                         </div>
-                                        <div class="form-group">
-                                            <input asp-for="Input.Password" class="form-control form-control-user" placeholder="Senha" />
-                                            <span asp-validation-for="Input.Password" class="text-danger"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input asp-for="Input.RememberMe" type="checkbox" class="custom-control-input" id="customCheck" />
-                                                <label asp-for="Input.RememberMe" class="custom-control-label" for="customCheck"></label>
-                                            </div>
-                                        </div>
-                                        <button class="btn btn-primary btn-user btn-block" type="submit">
-                                            Entrar
-                                        </button>
-                                        <hr>
-                                    </form>
-                                    @{
-                                        if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                                        {
-                                            <div class="text-center">
-                                                <p>
-                                                    Não há serviços de autenticação externos configurados.
-                                                </p>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <form asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                                                <div>
-                                                    <p>
-                                                        @foreach (var provider in Model.ExternalLogins)
-                                                        {
-                                                            if (provider.Name == "Google")
-                                                            {
-                                                                <button type="submit" class="btn btn-default btn-google btn-user btn-block" name="provider" value="@provider.Name" title="Faça o login usando sua conta @provider.DisplayName"><i class="fab fa-google fa-fw"></i> Entrar com Google</button>
-                                                            }
-                                                            else
-                                                            {
-                                                                <button type="submit" class="btn btn-default btn-facebook btn-user btn-block" name="provider" value="@provider.Name" title="Faça o login usando sua conta @provider.DisplayName"><i class="fab fa-facebook-f fa-fw"></i> Entrar com Facebook</button>
-                                                            }
-                                                        }
-                                                    </p>
-                                                </div>
-                                            </form>
-                                        }
                                     }
-                                    <hr>
-                                    <div class="text-center">
-                                        <a asp-page="./ForgotPassword">Esqueceu a senha?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Crie a sua conta aqui!</a>
+                                    else
+                                    {
+                                        <form asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                                            @foreach (var provider in Model.ExternalLogins)
+                                            {
+                                                if (provider.Name == "Google")
+                                                {
+                                                    <button type="submit" class="btn btn-neutral btn-icon" name="provider" value="@provider.Name" title="Faça o login usando sua conta @provider.DisplayName">
+                                                        <i class="fab fa-google fa-fw"></i>
+                                                        <span class="btn-inner--text">Google</span>
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    <button type="submit" class="btn btn-neutral btn-ico" name="provider" value="@provider.Name" title="Faça o login usando sua conta @provider.DisplayName">
+                                                        <i class="fab fa-facebook-f fa-fw"></i>
+                                                        <span class="btn-inner--text">Facebook</span>
+                                                    </button>
+                                                }
+                                            }
+                                        </form>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="card-body px-lg-5 py-lg-5">
+                            <div class="text-center text-muted mb-4">
+                                <small>
+                                    Ou entre com credenciais
+                                </small>
+                            </div>
+                            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                        </div>
+                                        <input asp-for="Input.Email" class="form-control" placeholder="Email" />
                                     </div>
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                        </div>
+                                        <input asp-for="Input.Password" class="form-control" placeholder="Senha" />
+                                    </div>
+                                </div>
+                                <div class="custom-control custom-control-alternative custom-checkbox">
+                                    <input asp-for="Input.RememberMe" type="checkbox"  class="custom-control-input" id=" customCheckLogin" />
+                                    <label asp-for="Input.RememberMe" class="custom-control-label" for=" customCheckLogin">
+                                        <span class="text-muted">Lembrar me</span>
+                                    </label>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-block btn-primary my-4">Entrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <a asp-page="./ForgotPassword"  class="text-light">Esqueceu a senha?</a>
+                        </div>
+                        <div class="col-6 text-right">
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-light">Crie a sua conta aqui!</a>
                         </div>
                     </div>
                 </div>
@@ -106,17 +138,19 @@
     </div>
 
     <script src="~/lib/jquery-3.3.1/dist/jquery.min.js"></script>
-    <script src="~/js/konbaseBootstrap.min.js"></script>
-    <script src="~/lib/jquery-easing-1.3.0/jquery-easing.js"></script>
-    <script src="~/js/sidebarToggleTop.js"></script>
-    <script src="~/lib/jquery-Mask-1.14.15/src/jquery.mask.js"></script>
-    <script src="~/js/styleMask.js"></script>
+    <script src="~/lib/bootstrap-4.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/js-cookie-2.2.0/js.cookie.js"></script>
+    <script src="~/lib/jquery.scrollbar-0.2.11/jquery.scrollbar.min.js"></script>
+    <script src="~/lib/jquery-scroll-lock-3.1.3/dist/jquery-scrollLock.min.js"></script>
+    <script src="~/lib/lavalamp-1.1.0/package/js/jquery.lavalamp.min.js"></script>
+
+    <script src="~/js/moment.min.js"></script>
+    <script src="~/js/script.js"></script>
+
+    @await Component.InvokeAsync("NToastNotify")
 
     @section Scripts {
         <partial name="_ValidationScriptsPartial" />
     }
-
-    @await Component.InvokeAsync("NToastNotify")
-
 </body>
 </html>

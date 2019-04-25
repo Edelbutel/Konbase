@@ -17,6 +17,10 @@ using KonBase.Custom;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using KonBase.Areas.Identity.Services;
 using NToastNotify;
+using KonBase.Services.Interfaces;
+using KonBase.Services;
+using Microsoft.AspNetCore.HttpOverrides;
+using KonBase.Custom.Middleware;
 
 namespace KonBase
 {
@@ -29,9 +33,17 @@ namespace KonBase
 
         public IConfiguration Configuration { get; }
 
+
         // Esse método é chamado pelo tempo de execução. Use este método para adicionar serviços ao contêiner.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders =
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // Este lambda determina se o consentimento do usuário para cookies não essenciais é necessário para uma determinada solicitação.
@@ -55,6 +67,7 @@ namespace KonBase
                 options.Password.RequiredUniqueChars = 1;
             });
 
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -73,8 +86,8 @@ namespace KonBase
                 })
                 .AddFacebook(facebookOptions =>
                 {
-                    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
-                    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                    facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"]; 
+                    facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];  
                 });
 
             services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
@@ -85,14 +98,35 @@ namespace KonBase
 
             services.AddSingleton<EmailSender>();
 
+            services.AddScoped<ICondominiumService, CondominiumService>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
         }
 
         // Esse método é chamado pelo tempo de execução. Use este método para configurar o pipeline de solicitação de HTTP.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseForwardedHeaders();
+
+            app.Use(async (context, next) =>
+            {
+                if (context.Request.IsHttps || context.Request.Headers["X-Forwarded-Proto"] == Uri.UriSchemeHttps)
+                {
+                    await next();
+                }
+                else
+                {
+                    string queryString = context.Request.QueryString.HasValue ? context.Request.QueryString.Value : string.Empty;
+                    var https = "https://" + context.Request.Host + context.Request.Path + queryString;
+                    context.Response.Redirect(https);
+                }
+            });
+        
+
             if (env.IsDevelopment())
             {
+
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
@@ -102,11 +136,13 @@ namespace KonBase
                 app.UseHsts();
             }
 
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+         //   app.UseMiddleware<RedirectNoCondominium>();
 
             app.UseNToastNotify();
 

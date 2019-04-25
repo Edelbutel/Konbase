@@ -15,6 +15,9 @@ namespace KonBase.Data
         {
         }
 
+        public virtual DbSet<ApplicationCondominium> Condominium { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

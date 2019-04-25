@@ -12,7 +12,6 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "SEND_GRID_API_KEY": "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",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

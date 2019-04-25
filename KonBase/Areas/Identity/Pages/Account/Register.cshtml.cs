@@ -80,6 +80,10 @@ namespace KonBase.Areas.Identity.Pages.Account
             [Display(Name = "Confirmar Senha")]
             [Compare("Password", ErrorMessage = "As senhas não correspondem.")]
             public string ConfirmPassword { get; set; }
+
+
+            [Required(ErrorMessage = "Para poder usar o Konbase você deve aceitar a Política de Privacidade")]
+            public bool PrivacyPolicy { get; set; }
         }
 
         public async Task OnGet(string returnUrl = null)
