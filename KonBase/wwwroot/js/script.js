@@ -726,6 +726,18 @@ var DatatableBasic = function () {
             $(".dt-buttons .btn").removeClass("btn-secondary").addClass("btn-sm btn-default")
         }).DataTable(e))
     }(),
+    Datepicker = function () {
+        var e = $(".datepicker");
+
+        e.length && e.each(function () {
+            $(this).datepicker({
+                disableTouchKeyboard: !0,
+                autoclose: !1,
+                format: 'dd/mm/yyyy',
+                language: 'pt-BR'
+            })
+        })
+    }(),
     Dropzones = function () {
         var e = $('[data-toggle="dropzone"]'),
             a = $(".dz-preview");
@@ -746,15 +758,6 @@ var DatatableBasic = function () {
                 }
             }, n.html(""), e.dropzone(o)
         }))
-    }(),
-    Datepicker = function () {
-        var e = $(".datepicker");
-        e.length && e.each(function () {
-            $(this).datepicker({
-                disableTouchKeyboard: !0,
-                autoclose: !1
-            })
-        })
     }(),
     noUiSlider = function () {
         if ($(".input-slider-container")[0] && $(".input-slider-container").each(function () {

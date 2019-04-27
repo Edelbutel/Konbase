@@ -74,3 +74,4 @@ C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\obj\Debug\netcoreapp2.1\win
 C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\obj\Debug\netcoreapp2.1\win-x64\KonBase.dll
 C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\obj\Debug\netcoreapp2.1\win-x64\KonBase.pdb
 C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\obj\Debug\netcoreapp2.1\win-x64\KonBase.csproj.CopyComplete
+C:\Users\matheus.re\Documents\GitHub\Konbase\KonBase\obj\Debug\netcoreapp2.1\win-x64\Razor\Views\Dweller\ToView.g.cshtml.cs

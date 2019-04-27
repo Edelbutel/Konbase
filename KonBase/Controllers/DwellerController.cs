@@ -33,5 +33,19 @@ namespace KonBase.Controllers
             return View();
         }
 
+        public IActionResult ToView()
+        {
+            return View();
+        }
+
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
+        public IActionResult Delete()
+        {
+            return View();
+        }
     }
 }
