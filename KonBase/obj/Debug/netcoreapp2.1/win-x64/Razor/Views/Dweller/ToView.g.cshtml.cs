@@ -255,12 +255,12 @@ using KonBase.Models;
                                 ");
             EndContext();
             BeginContext(10680, 571, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "71a25459066447d5804aea7961557cc7", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "87836bb5f6da41aab989703aa2a02775", async() => {
                 BeginContext(10686, 130, true);
                 WriteLiteral("\r\n                                    <select class=\"form-control\" data-toggle=\"select\">\r\n                                        ");
                 EndContext();
                 BeginContext(10816, 23, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "faff8995a08d417481ba1c5315736876", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6e47bdc9910c4f08a344c779dc3148ef", async() => {
                     BeginContext(10824, 6, true);
                     WriteLiteral("Alerts");
                     EndContext();
@@ -280,7 +280,7 @@ using KonBase.Models;
                 WriteLiteral("\r\n                                        ");
                 EndContext();
                 BeginContext(10881, 23, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "371dc83ab5a74354bca2af89d27620c5", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "916206a51dad4966bd1add141c473f06", async() => {
                     BeginContext(10889, 6, true);
                     WriteLiteral("Badges");
                     EndContext();
@@ -300,7 +300,7 @@ using KonBase.Models;
                 WriteLiteral("\r\n                                        ");
                 EndContext();
                 BeginContext(10946, 24, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8479c293493c41e5ac4b716dd524c58d", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c36d1902bc6e415b8ec1bf61d7e24ddb", async() => {
                     BeginContext(10954, 7, true);
                     WriteLiteral("Buttons");
                     EndContext();
@@ -320,7 +320,7 @@ using KonBase.Models;
                 WriteLiteral("\r\n                                        ");
                 EndContext();
                 BeginContext(11012, 22, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "aa038545ab6d421d8c2ef4e1440f3b9a", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "05498ffdcb754554a7506bfa035aed0e", async() => {
                     BeginContext(11020, 5, true);
                     WriteLiteral("Cards");
                     EndContext();
@@ -340,7 +340,7 @@ using KonBase.Models;
                 WriteLiteral("\r\n                                        ");
                 EndContext();
                 BeginContext(11076, 22, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "921c54e2841f4b5781032667d44aae2c", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "25df79eb6ae8480bbe99a3c42e873e67", async() => {
                     BeginContext(11084, 5, true);
                     WriteLiteral("Forms");
                     EndContext();
@@ -360,7 +360,7 @@ using KonBase.Models;
                 WriteLiteral("\r\n                                        ");
                 EndContext();
                 BeginContext(11140, 23, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2a7ae49ceae54ab0a1bd7e4f5a884723", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2d8425bf63cb46d695c169256344e914", async() => {
                     BeginContext(11148, 6, true);
                     WriteLiteral("Modals");
                     EndContext();

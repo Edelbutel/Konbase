@@ -85,7 +85,7 @@ using KonBase.Models;
             WriteLiteral("<div class=\"row card-wrapper\">\r\n    <div class=\"col-md-12\">\r\n        ");
             EndContext();
             BeginContext(620, 102, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "be1744c09dab493a9391f257a24a14d5", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9474ed3f91f84964a181a83917d8874c", async() => {
                 BeginContext(701, 17, true);
                 WriteLiteral("Adicionar Morador");
                 EndContext();
@@ -138,7 +138,7 @@ using KonBase.Models;
             WriteLiteral("-label=\"Basic example\">\r\n                    ");
             EndContext();
             BeginContext(1791, 94, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6f72328e95ab4a34ba3c528a43037bbe", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c2049ee8c1c548708a735bfef0919dc1", async() => {
                 BeginContext(1875, 6, true);
                 WriteLiteral("Editar");
                 EndContext();
@@ -165,7 +165,7 @@ using KonBase.Models;
             WriteLiteral("\r\n                    ");
             EndContext();
             BeginContext(1907, 100, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e3f07fd6fc5b48c9963ad681af334ee7", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a676071059154b22b3ce0e990e5e0d9f", async() => {
                 BeginContext(1993, 10, true);
                 WriteLiteral("Visualizar");
                 EndContext();
@@ -192,7 +192,7 @@ using KonBase.Models;
             WriteLiteral("\r\n                    ");
             EndContext();
             BeginContext(2029, 97, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "eb08958be0b64216a2b932459037a60a", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2de2f96d074647409cda2bad20c78e56", async() => {
                 BeginContext(2115, 7, true);
                 WriteLiteral("Excluir");
                 EndContext();
