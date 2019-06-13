@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BeginCollectionItemCore" Version="1.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.7" PrivateAssets="All" />
@@ -27,33 +28,47 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Content Update="Areas\Dweller\Views\Dashboard\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Identity\Pages\Account\ConfirmEmail.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Condominium\Add.cshtml">
+    <Content Update="Areas\Admin\Views\Condominium\Add.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Condominium\Index.cshtml">
+    <Content Update="Areas\Admin\Views\Condominium\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Dashboard\Index.cshtml">
+    <Content Update="Areas\Admin\Views\Dashboard\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Dweller\ToView.cshtml">
+    <Content Update="Areas\Admin\Views\Dweller\ToView.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Dweller\Add.cshtml">
+    <Content Update="Areas\Admin\Views\Dweller\Add.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Dweller\Index.cshtml">
+    <Content Update="Areas\Admin\Views\Dweller\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Provider\Add.cshtml">
+    <Content Update="Areas\Admin\Views\Provider\Add.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Provider\Index.cshtml">
+    <Content Update="Areas\Admin\Views\Provider\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Concierge\Controllers\" />
+    <Folder Include="Areas\Concierge\Data\" />
+    <Folder Include="Areas\Concierge\Models\" />
+    <Folder Include="Areas\Concierge\Views\" />
+    <Folder Include="Areas\Dweller\Data\" />
+    <Folder Include="Areas\Dweller\Models\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

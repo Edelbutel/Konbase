@@ -19,13 +19,15 @@ namespace KonBase.Areas.Identity.Pages.Account
     {
         private readonly IToastNotification _toastNotification;
         private readonly SignInManager<ApplicationUsers> _signInManager;
+        private readonly UserManager<ApplicationUsers> _userManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<ApplicationUsers> signInManager, ILogger<LoginModel> logger, IToastNotification toastNotification)
+        public LoginModel(SignInManager<ApplicationUsers> signInManager, ILogger<LoginModel> logger, IToastNotification toastNotification, UserManager<ApplicationUsers> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
             _toastNotification = toastNotification;
+            _userManager = userManager;
         }
 
         [BindProperty]
@@ -80,9 +82,9 @@ namespace KonBase.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
-                    _toastNotification.AddSuccessToastMessage("Você entrou com sucesso");
                     _logger.LogInformation("Usuário logado.");
-                    return RedirectToAction("Index", "Dashboard");
+
+                    return RedirectToAction("RedirectUserLoginAsync", "Redirect", new { area = "" });
                 }
                 if (result.RequiresTwoFactor)
                 {

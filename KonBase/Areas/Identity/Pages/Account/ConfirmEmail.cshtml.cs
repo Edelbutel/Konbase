@@ -44,7 +44,7 @@ namespace KonBase.Areas.Identity.Pages.Account
 
             _toastNotification.AddSuccessToastMessage("Obrigado por confirmar seu Email");
 
-            return RedirectToAction("Login", "Identity/Account");
+            return RedirectToAction("Login", "Account");
         }
     }
 }

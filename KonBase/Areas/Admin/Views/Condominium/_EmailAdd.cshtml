@@ -1,0 +1,16 @@
+﻿@using HtmlHelpers.BeginCollectionItemCore;
+@model EmailViewModel
+
+@using (Html.BeginCollectionItem("Emails"))
+{
+   
+        <label class="form-control-label" asp-for="Email">Email</label>
+        <div class="input-group form-group">
+            <input type="text" class="form-control email" asp-for="Email" placeholder="Email">
+            <div class="input-group-append">
+                <button class="btn btn-primary addEmail" type="button"><i class="fas fa-plus"></i></button>
+            </div>
+        </div>
+        <span asp-validation-for="Email" class="text-danger"></span>
+
+}

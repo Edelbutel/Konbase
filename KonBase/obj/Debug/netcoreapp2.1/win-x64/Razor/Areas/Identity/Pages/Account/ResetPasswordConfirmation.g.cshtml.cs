@@ -76,7 +76,7 @@ Write(ViewData["Title"]);
             WriteLiteral("</h2>\r\n<p>\r\n    Sua senha foi alterada. Por favor ");
             EndContext();
             BeginContext(183, 53, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ebb823900aea42d8b2f2f256def61311", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "901a8a7effba4019a647576e4164953c", async() => {
                 BeginContext(205, 27, true);
                 WriteLiteral(" clique aqui para se logar ");
                 EndContext();

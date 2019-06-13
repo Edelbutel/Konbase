@@ -25,19 +25,22 @@ namespace KonBase.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUsers> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly EmailSender _emailSender;
+        private readonly RoleManager<ApplicationRoles> _roleManager;
 
         public RegisterModel(
             UserManager<ApplicationUsers> userManager,
             SignInManager<ApplicationUsers> signInManager,
             ILogger<RegisterModel> logger,
             EmailSender emailSender,
-            IToastNotification toastNotification)
+            IToastNotification toastNotification,
+            RoleManager<ApplicationRoles> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             _toastNotification = toastNotification;
+            _roleManager = roleManager;
         }
 
         [BindProperty]
@@ -117,8 +120,16 @@ namespace KonBase.Areas.Identity.Pages.Account
                 };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
                 if (result.Succeeded)
                 {
+                    var applicationRole = await _roleManager.FindByNameAsync("Admin");
+
+                    if (applicationRole != null)
+                    {
+                        IdentityResult roleResult = await _userManager.AddToRoleAsync(user, applicationRole.Name);
+                    }
+
                     _logger.LogInformation("O usuário criou uma nova conta com senha");
 
                     var codeGerado = await _userManager.GenerateEmailConfirmationTokenAsync(user);

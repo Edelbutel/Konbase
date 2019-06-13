@@ -17,10 +17,10 @@ using KonBase.Custom;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using KonBase.Areas.Identity.Services;
 using NToastNotify;
-using KonBase.Services.Interfaces;
-using KonBase.Services;
 using Microsoft.AspNetCore.HttpOverrides;
 using KonBase.Custom.Middleware;
+using KonBase.Areas.Admin.Interfaces;
+using KonBase.Areas.Admin.Services;
 
 namespace KonBase
 {
@@ -72,6 +72,8 @@ namespace KonBase
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
+
+
             services.AddIdentity<ApplicationUsers, ApplicationRoles>()
             .AddErrorDescriber<PortugueseIdentityErrorDescriber>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -105,10 +107,10 @@ namespace KonBase
         }
 
         // Esse método é chamado pelo tempo de execução. Use este método para configurar o pipeline de solicitação de HTTP.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
         {
             app.UseForwardedHeaders();
-
+            /*
             app.Use(async (context, next) =>
             {
                 if (context.Request.IsHttps || context.Request.Headers["X-Forwarded-Proto"] == Uri.UriSchemeHttps)
@@ -122,7 +124,7 @@ namespace KonBase
                     context.Response.Redirect(https);
                 }
             });
-        
+        */
 
             if (env.IsDevelopment())
             {
@@ -148,10 +150,40 @@ namespace KonBase
 
             app.UseMvc(routes =>
             {
+
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                  name: "areaRoute",
+                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                  name: "default",
+                  template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            CreateRoles(app).Wait();
+        }
+
+        private async Task CreateRoles(IApplicationBuilder app)
+        {
+            using (IServiceScope scope = app.ApplicationServices.CreateScope())
+            {
+                RoleManager<ApplicationRoles> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRoles>>();
+
+                UserManager<ApplicationUsers> userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUsers>>();
+
+                string[] rolesNames = { "Admin", "Concierge", "Dweller" };
+
+                IdentityResult roleResult;
+
+                foreach (var namesRole in rolesNames)
+                {
+                    var roleExist = await roleManager.RoleExistsAsync(namesRole);
+                    if (!roleExist)
+                    {
+                        roleResult = await roleManager.CreateAsync(new ApplicationRoles(namesRole));
+                    }
+                }
+            }  
         }
     }
 }

@@ -37,7 +37,7 @@ namespace KonBase.Areas.Identity.Pages.Account
             }
             else
             {
-                return RedirectToAction("Login","Identity/Account");
+                return RedirectToAction("Login","/Identity/Account",  new { area = "" });
             }
         }
     }

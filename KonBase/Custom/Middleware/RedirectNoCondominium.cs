@@ -1,5 +1,5 @@
-﻿using KonBase.Models;
-using KonBase.Services.Interfaces;
+﻿using KonBase.Areas.Admin.Interfaces;
+using KonBase.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;

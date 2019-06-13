@@ -4939,16 +4939,20 @@ input[type=submit].btn-block {
             color: rgba(255, 255, 255, .65)
         }
 
-.user-condominium .card-body{
+.condominium{
+    margin-top: 4rem !important;
+}
+
+.dweller-condominium .card-body {
     padding: 0px !important;
 }
 
-.user-condominium .card-body .name {
+.dweller-condominium .card-body .name {
     padding: 0.500rem;
     margin-top: 4rem;
 }
 
-.user-condominium .card{
+.dweller-condominium .card{
     margin-top: 7rem !important;
 }
 
@@ -7027,6 +7031,10 @@ button.bg-dark:hover {
 
 .bg-default {
     background-color: #172b4d !important
+}
+
+.bg-blue-abstract {
+    background-image:  url(../images/site/blue-abstract.jpg);
 }
 
 a.bg-default:focus,
@@ -16504,7 +16512,7 @@ textarea[resize=horizontal] {
 
 .navbar-search-light .input-group {
     border-color: rgba(0, 0, 0, .6);
-    background-color: rgba(255, 255, 255, .9)
+    background-color: #fff;
 }
 
 .navbar-search-light .input-group-text {

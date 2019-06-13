@@ -109,12 +109,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="input-group input-group-merge input-group-alternative mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <div class="input-group input-group-merge input-group-alternative mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                            </div>
+                                            <input asp-for="Input.Email" class="form-control " placeholder="Email" />
                                         </div>
-                                        <input asp-for="Input.Email" class="form-control " placeholder="Email" />
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="input-group input-group-merge input-group-alternative mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
+                                            </div>
+                                            <input asp-for="Input.CellPhone" class="form-control " placeholder="Celular" />
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">

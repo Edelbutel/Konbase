@@ -703,10 +703,25 @@ var DatatableBasic = function () {
             style: "multi"
         },
         language: {
+            processing: "Processando...",
+            search: "Pesquisar:",
+            lengthMenu: "Mostrar _MENU_ Elementos",
+            info: "Mostrando p&aacute;gina _PAGE_ de _PAGES_",
+            infoEmpty: "Nenhum registro disponível",
+            infoFiltered: "(Filtrado de _MAX_ registros)",
+            infoPostFix: "",
+            loadingRecords: "Carregando ...",
+            zeroRecords: "Nenhum registro correspondente encontrado",
+            emptyTable: "Não há dados disponíveis na tabela",
             paginate: {
                 previous: "<i class='fas fa-angle-left'>",
                 next: "<i class='fas fa-angle-right'>"
+            },
+            aria: {
+                sortAscending: ": ativar para classificar coluna em ordem ascendente",
+                sortDescending: ": ativar para classificar a coluna em ordem decrescente"
             }
+
         }
     })
 }(),
@@ -717,6 +732,9 @@ var DatatableBasic = function () {
             dom: "Bfrtip",
             buttons: ["copy", "print"],
             language: {
+                processing: "Processando...",
+                search: "Pesquisar:",
+                info: "Mostrando page _PAGE_ of _PAGES_",
                 paginate: {
                     previous: "<i class='fas fa-angle-left'>",
                     next: "<i class='fas fa-angle-right'>"
@@ -1171,10 +1189,13 @@ var DatatableBasic = function () {
         })
     }(),
     Select2 = function () {
+
         var e = $('[data-toggle="select"]');
         e.length && e.each(function () {
-            $(this).select2({})
-        })
+            $(this).select2({
+                language: 'pt-BR'
+            })
+        });
     }(),
     Tags = function () {
         var e = $('[data-toggle="tags"]');
@@ -1183,4 +1204,114 @@ var DatatableBasic = function () {
                 tagClass: "badge badge-primary"
             })
         })
+    }(),
+    JqueryMask = function () {
+
+        $(document).ready(function () {
+            addMask();
+        });
+
+        function addMask() {
+            var SPMaskBehavior = function (val) {
+                return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+            },
+                spOptions = {
+                    onKeyPress: function (val, e, field, options) {
+                        field.mask(SPMaskBehavior.apply({}, arguments), options);
+                    }
+                };
+
+            $('.phone').mask(SPMaskBehavior, spOptions);
+            $('.cep').mask('00000-000');
+            $('.cpf').mask('000.000.000-00', { reverse: true });
+            $('.cnpj').mask('00.000.000/0000-00', { reverse: true });
+        }
+
+    }(),
+    CloneGarage = function () {
+        var cloneGarage = $('#dynamicDivGarage');
+
+        $(document).on('click', '#addGarage', function () {
+            $('<span>' +
+                '<label class="form-control-label" for="">Número da Vaga de Garagem</label>' +
+                '<div class="input-group form-group">' +
+                '<input type="text" class="form-control" placeholder="Nº da Vaga de Garagem">' +
+                '<div class="input-group-append">' +
+                '<button class="btn btn-danger" type="button" class="delGarage"><i class="fas fa-minus"></i></button>' +
+                '</div>' +
+                '</div>' +
+                '</span>').appendTo(cloneGarage);
+            return false;
+        });
+
+        $(document).on('click', '.delGarage', function () {
+            $(this).parents('span').remove();
+            return false;
+        });
+    }(),
+    SearchAddressCEP = function () {
+
+        $(document).ready(function () {
+            getCEP();
+        });
+
+        function cleanFormCep() {
+            $(".cep").val("");
+            $(".endereco").val("");
+            $(".bairro").val("");
+            $(".cidade").val("");
+            $(".estado").val("");
+        };
+
+        function getCEP() {
+            //Quando o campo cep perde o foco.
+            $(".cep").blur(function () {
+
+                //Nova variável "cep" somente com dígitos.
+                var cep = $(this).val().replace(/\D/g, '');
+
+                //Verifica se campo cep possui valor informado.
+                if (cep != "") {
+
+                    //Expressão regular para validar o CEP.
+                    var validacep = /^[0-9]{8}$/;
+
+                    //Valida o formato do CEP.
+                    if (validacep.test(cep)) {
+
+                        //Preenche os campos com "..." enquanto consulta webservice.
+                        $(".endereco").val("...");
+                        $(".bairro").val("...");
+                        $(".cidade").val("...");
+                        $(".estado").val("...");
+
+                        //Consulta o webservice viacep.com.br/
+                        $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+
+                            if (!("erro" in dados)) {
+                                //Atualiza os campos com os valores da consulta.
+                                $(".endereco").val(dados.logradouro);
+                                $(".bairro").val(dados.bairro);
+                                $(".cidade").val(dados.localidade);
+                                $(".estado").val(dados.uf).trigger('change');
+                            } //end if.
+                            else {
+                                //CEP pesquisado não foi encontrado.
+                                cleanFormCep();
+                                alert("CEP não encontrado.");
+                            }
+                        });
+                    } //end if.
+                    else {
+                        //cep é inválido.
+                        cleanFormCep();
+                        alert("Formato de CEP inválido.");
+                    }
+                } //end if.
+                else {
+                    //cepCliente sem valor, limpa formulário.
+                    cleanFormCep();
+                }
+            });
+        }
     }();

@@ -1,0 +1,16 @@
+﻿@using HtmlHelpers.BeginCollectionItemCore;
+@model PhoneViewModel
+
+@using (Html.BeginCollectionItem("Phones"))
+{
+
+    <label class="form-control-label" asp-for="Phone">Telefone ou Celular</label>
+    <div class="input-group form-group">
+        <input type="text" class="form-control phone" asp-for="Phone" placeholder="Telefone ou Celular">
+        <div class="input-group-append">
+            <button class="btn btn-primary addPhone" type="button"><i class="fas fa-plus"></i></button>
+        </div>
+    </div>
+    <span asp-validation-for="Phone" class="text-danger"></span>
+
+}

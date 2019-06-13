@@ -15,15 +15,59 @@ namespace KonBase.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("KonBase.Models.ApplicationCondominium", b =>
+            modelBuilder.Entity("KonBase.Areas.Admin.Models.ApplicationBank", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("Number");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Bank");
+                });
+
+            modelBuilder.Entity("KonBase.Areas.Admin.Models.ApplicationCondominium", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("Cep");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("Cnpj")
+                        .IsRequired();
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired();
+
+                    b.Property<string>("Complement");
+
+                    b.Property<string>("CondominiumType");
+
+                    b.Property<DateTime?>("ConstructionDate");
+
+                    b.Property<string>("District");
+
+                    b.Property<string>("FantasyName")
+                        .IsRequired();
+
+                    b.Property<string>("Note");
+
+                    b.Property<int>("Number");
+
+                    b.Property<string>("Uf");
 
                     b.Property<Guid?>("UserId");
 
@@ -32,6 +76,63 @@ namespace KonBase.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Condominium");
+                });
+
+            modelBuilder.Entity("KonBase.Areas.Admin.Models.ApplicationCondominiumBank", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AccountCurrent");
+
+                    b.Property<int>("Agency");
+
+                    b.Property<long?>("BankId");
+
+                    b.Property<long?>("CondominiumId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankId");
+
+                    b.HasIndex("CondominiumId");
+
+                    b.ToTable("CondominiumBank");
+                });
+
+            modelBuilder.Entity("KonBase.Areas.Admin.Models.ApplicationCondominiumEmail", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("CondominiumId");
+
+                    b.Property<string>("Email");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CondominiumId");
+
+                    b.ToTable("CondominiumEmail");
+                });
+
+            modelBuilder.Entity("KonBase.Areas.Admin.Models.ApplicationCondominiumPhone", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("CondominiumId");
+
+                    b.Property<string>("Phone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CondominiumId");
+
+                    b.ToTable("CondominiumPhone");
                 });
 
             modelBuilder.Entity("KonBase.Models.ApplicationRoleClaims", b =>
@@ -50,7 +151,7 @@ namespace KonBase.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleClaims");
+                    b.ToTable("RoleClaim");
                 });
 
             modelBuilder.Entity("KonBase.Models.ApplicationRoles", b =>
@@ -74,7 +175,7 @@ namespace KonBase.Data.Migrations
                         .HasName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("KonBase.Models.ApplicationUserClaims", b =>
@@ -93,7 +194,7 @@ namespace KonBase.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserClaims");
+                    b.ToTable("UserClaim");
                 });
 
             modelBuilder.Entity("KonBase.Models.ApplicationUserLogins", b =>
@@ -110,7 +211,7 @@ namespace KonBase.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLogins");
+                    b.ToTable("UserLogin");
                 });
 
             modelBuilder.Entity("KonBase.Models.ApplicationUserRoles", b =>
@@ -123,7 +224,7 @@ namespace KonBase.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserRole");
                 });
 
             modelBuilder.Entity("KonBase.Models.ApplicationUsers", b =>
@@ -180,7 +281,7 @@ namespace KonBase.Data.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("KonBase.Models.ApplicationUserToken", b =>
@@ -198,11 +299,36 @@ namespace KonBase.Data.Migrations
                     b.ToTable("UserToken");
                 });
 
-            modelBuilder.Entity("KonBase.Models.ApplicationCondominium", b =>
+            modelBuilder.Entity("KonBase.Areas.Admin.Models.ApplicationCondominium", b =>
                 {
                     b.HasOne("KonBase.Models.ApplicationUsers", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("KonBase.Areas.Admin.Models.ApplicationCondominiumBank", b =>
+                {
+                    b.HasOne("KonBase.Areas.Admin.Models.ApplicationBank", "Bank")
+                        .WithMany()
+                        .HasForeignKey("BankId");
+
+                    b.HasOne("KonBase.Areas.Admin.Models.ApplicationCondominium", "Condominium")
+                        .WithMany("Bank")
+                        .HasForeignKey("CondominiumId");
+                });
+
+            modelBuilder.Entity("KonBase.Areas.Admin.Models.ApplicationCondominiumEmail", b =>
+                {
+                    b.HasOne("KonBase.Areas.Admin.Models.ApplicationCondominium", "Condominium")
+                        .WithMany("Email")
+                        .HasForeignKey("CondominiumId");
+                });
+
+            modelBuilder.Entity("KonBase.Areas.Admin.Models.ApplicationCondominiumPhone", b =>
+                {
+                    b.HasOne("KonBase.Areas.Admin.Models.ApplicationCondominium", "Condominium")
+                        .WithMany("Phone")
+                        .HasForeignKey("CondominiumId");
                 });
 
             modelBuilder.Entity("KonBase.Models.ApplicationRoleClaims", b =>

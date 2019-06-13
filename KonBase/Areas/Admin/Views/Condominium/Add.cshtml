@@ -1,0 +1,313 @@
+﻿@model AddCondominiumViewModel
+
+@{
+    ViewData["Title"] = "Adicionar Condomínio";
+}
+
+@section breadcrumb {
+    <h6 class="h2 text-white d-inline-block mb-0">Condomínio</h6>
+    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+            <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Dashboard" asp-action="Index"><i class="fas fa-home"></i></a></li>
+            <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Condominium" asp-action="Index">Condomínio</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Adicionar</li>
+        </ol>
+    </nav>
+}
+
+<div class="col-md-12">
+    <form method="post" asp-area="Admin">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card-wrapper">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col-md-6 float-left">
+                                    <h3 class="mb-0"> Condomínio </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="heading-small text-muted mb-4">
+                                INFORMAÇÕES DO CONDOMÍNIO
+                            </h6>
+                            <div class="pl-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-control-label" asp-for="FantasyName">Nome Fantasia</label>
+                                            <input type="text" asp-for="FantasyName" class="form-control" placeholder="Nome Fantasia">
+                                            <span asp-validation-for="FantasyName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" asp-for="CompanyName">Razão Social</label>
+                                            <input type="text" asp-for="CompanyName" class="form-control" placeholder="Razão Social">
+                                            <span asp-validation-for="CompanyName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" asp-for="Cnpj">CNPJ</label>
+                                            <input class="form-control cnpj" asp-for="Cnpj" placeholder="CNPJ" type="text">
+                                            <span asp-validation-for="Cnpj" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" asp-for="ConstructionDate">Data de Contrução</label>
+                                            <input class="form-control datepicker" asp-for="ConstructionDate" placeholder="Data de Contrução" type="text">
+                                            <span asp-validation-for="ConstructionDate" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" asp-for="CondominiumType">Tipo de Condomínio</label>
+                                            <select class="form-control" asp-for="CondominiumType" data-toggle="select">
+                                                <option>Residencial</option>
+                                                <option>Comercial</option>
+                                                <option>Misto</option>
+                                                <option>Associação</option>
+                                                <option>Logístico</option>
+                                            </select>
+                                            <span asp-validation-for="CondominiumType" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="my-4" />
+
+                            <h6 class="heading-small text-muted mb-4">
+                                INFORMAÇÕES DE CONTATO
+                            </h6>
+                            <div class="pl-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-6" id="dynamicDivPhone">
+                                        @foreach (var Phone in Model.Phones.Select((value, index) => new { value, index }))
+                                        {
+
+                                            if(Phone.index == 0)
+                                            {
+                                                await Html.RenderPartialAsync("_PhoneAdd", Phone.value);
+                                            }
+                                            else
+                                            {
+                                                await Html.RenderPartialAsync("_PhoneMinus", Phone.value);
+                                            }
+                                        }
+                                    </div>
+                                    <div class="col-lg-6" id="dynamicDivEmail">
+                                        @foreach (var Email in Model.Emails.Select((value, index) => new { value, index }))
+                                        {
+
+                                            if (Email.index == 0)
+                                            {
+                                                await Html.RenderPartialAsync("_EmailAdd", Email.value);
+                                            }
+                                            else
+                                            {
+                                                await Html.RenderPartialAsync("_EmailMinus", Email.value);
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="my-4" />
+
+                            <h6 class="heading-small text-muted mb-4">
+                                INFORMAÇÕES DE ENDEREÇO
+                            </h6>
+                            <div class="pl-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" asp-for="Cep">CEP</label>
+                                            <input class="form-control cep" asp-for="Cep" placeholder="CEP" type="text">
+                                            <span asp-validation-for="Cep" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" asp-for="Address">Endereço</label>
+                                            <input class="form-control endereco" asp-for="Address" placeholder="Endereço" type="text">
+                                            <span asp-validation-for="Address" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" asp-for="City">Cidade</label>
+                                            <input class="form-control cidade" asp-for="City" placeholder="Cidade" type="text">
+                                            <span asp-validation-for="City" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" asp-for="District">Bairro</label>
+                                            <input class="form-control bairro" asp-for="District" placeholder="Bairro" type="text">
+                                            <span asp-validation-for="District" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" asp-for="Uf">UF</label>
+                                            <select class="form-control estado" asp-for="Uf" data-toggle="select">
+                                                <option value="">Selecionar</option>
+                                                <option value="AC">Acre</option>
+                                                <option value="AL">Alagoas</option>
+                                                <option value="AP">Amapá</option>
+                                                <option value="AM">Amazonas</option>
+                                                <option value="BA">Bahia</option>
+                                                <option value="CE">Ceará</option>
+                                                <option value="DF">Distrito Federal</option>
+                                                <option value="ES">Espírito Santo</option>
+                                                <option value="GO">Goiás</option>
+                                                <option value="MA">Maranhão</option>
+                                                <option value="MT">Mato Grosso</option>
+                                                <option value="MS">Mato Grosso do Sul</option>
+                                                <option value="MG">Minas Gerais</option>
+                                                <option value="PA">Pará</option>
+                                                <option value="PB">Paraíba</option>
+                                                <option value="PR">Paraná</option>
+                                                <option value="PE">Pernambuco</option>
+                                                <option value="PI">Piauí</option>
+                                                <option value="RJ">Rio de Janeiro</option>
+                                                <option value="RN">Rio Grande do Norte</option>
+                                                <option value="RS">Rio Grande do Sul</option>
+                                                <option value="RO">Rondônia</option>
+                                                <option value="RR">Roraima</option>
+                                                <option value="SC">Santa Catarina</option>
+                                                <option value="SP">São Paulo</option>
+                                                <option value="SE">Sergipe</option>
+                                                <option value="TO">Tocantins</option>
+                                            </select>
+                                        </div>
+                                        <span asp-validation-for="Uf" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" asp-for="Number">Número</label>
+                                            <input class="form-control" asp-for="Number" placeholder="Número" type="number">
+                                            <span asp-validation-for="Number" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-control-label" asp-for="Complement">Complemento</label>
+                                            <input class="form-control" asp-for="Complement" placeholder="Complemento" type="text">
+                                            <span asp-validation-for="Complement" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="my-4" />
+                            <h6 class="heading-small text-muted mb-4">
+                                OBSERVAÇÕES
+                            </h6>
+                            <div class="pl-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label class="form-control-label" asp-for="Note">Observações</label>
+                                            <textarea class="form-control" asp-for="Note" placeholder="Observações"></textarea>
+                                            <span asp-validation-for="Note" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="my-4" />
+
+                            <div class="pl-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <a asp-area="Admin" asp-controller="Dweller" asp-action="Index" class="btn btn-secondary float-left">Cancelar</a>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <button type="submit" class="btn btn-success float-right">Cadastrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section script {
+<script> 
+    $(function () {
+            $('.addPhone').on('click', function () {
+                $.ajax({
+                    url: '@Url.Action("AddPhone")',
+                    type: 'POST',
+                    cache: false,
+                    success: function (partialView) {
+                        $("#dynamicDivPhone").append(partialView);
+                    },
+                    error: function (data) {
+                        alert(data);
+                    }
+                });
+                    return false;
+            });
+
+            $('.addEmail').on('click', function () {
+                $.ajax({
+                    url: '@Url.Action("AddEmail")',
+                    type: 'POST',
+                    cache: false,
+                    success: function (partialView) {
+                        $("#dynamicDivEmail").append(partialView);
+                    },
+                    error: function (data) {
+                        alert(data);
+                    }
+                });
+                    return false;
+        });
+
+        $('.addBank').on('click', function () {
+                $.ajax({
+                    url: '@Url.Action("AddBank")',
+                    type: 'POST',
+                    cache: false,
+                    success: function (partialView) {
+                        $("#dynamicDivBank").append(partialView);
+                    },
+                    error: function (data) {
+                        alert(data);
+                    }
+                });
+                    return false;
+            });
+
+        $(document).on('click', '.removePhone', function () {
+            $(this).parents('span').remove();
+            return false;
+        });
+        $(document).on('click', '.removeEmail', function () {
+            $(this).parents('span').remove();
+            return false;
+        });
+        $(document).on('click', '.removeBank', function () {
+            $(this).parents('span').remove();
+            return false;
+        });
+    });
+</script>
+}

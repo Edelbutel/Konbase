@@ -8,5 +8,8 @@ namespace KonBase.Models
 {
     public class ApplicationRoles : IdentityRole<Guid>
     {
+        public ApplicationRoles() : base() { }
+
+        public ApplicationRoles(string roleName) : base(roleName) { }
     }
 }
